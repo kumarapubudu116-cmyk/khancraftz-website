@@ -776,19 +776,21 @@ function App() {
                     <small> · {product.pack}</small>
                   </div>
 
-       <div className="productbuttons">
+      <div className="productbuttons">
   <button
     className="detailsbutton"
-   onClick={() => {
-  console.log("VIEW DETAILS CLICKED", product);
-  setSelectedProduct(product);
-}}
+    onClick={() => {
+      console.log("VIEW DETAILS CLICKED", product);
+      setSelectedProduct(product);
+    }}
   >
-    <button
-  className="detailsbutton"
-  onClick={() => alert("BUTTON WORKING")}
->
-  VIEW DETAILS
+    VIEW DETAILS
+  </button>
+
+  <button className="addbutton">
+    ADD TO CART
+  </button>
+</div>
 </button>
                 </div>
               </article>
