@@ -10,6 +10,7 @@ const products = [
     origin: "Philippines",
     category: "Rare",
     color: "#7a1f2b",
+    icon: "✦",
   },
   {
     id: 2,
@@ -20,6 +21,7 @@ const products = [
     origin: "Sri Lanka",
     category: "Tropical",
     color: "#1f3d2b",
+    icon: "❋",
   },
   {
     id: 3,
@@ -30,6 +32,7 @@ const products = [
     origin: "Thailand",
     category: "Tropical",
     color: "#b6472f",
+    icon: "✿",
   },
   {
     id: 4,
@@ -40,6 +43,7 @@ const products = [
     origin: "India",
     category: "Fruit Trees",
     color: "#6b671c",
+    icon: "❈",
   },
   {
     id: 5,
@@ -50,6 +54,7 @@ const products = [
     origin: "Peru",
     category: "Rare",
     color: "#5a2116",
+    icon: "✧",
   },
   {
     id: 6,
@@ -60,6 +65,7 @@ const products = [
     origin: "Japan",
     category: "Ultra Rare",
     color: "#a3283f",
+    icon: "❀",
   },
 ];
 
@@ -85,8 +91,7 @@ function App() {
   const total = cart.reduce((sum, item) => sum + item.price, 0);
 
   return (
-    <div className="app">
-
+    <>
       <style>{`
         * {
           box-sizing: border-box;
@@ -109,12 +114,12 @@ function App() {
         }
 
         .topbar {
-          background: #0b0b0a;
+          background: #090908;
           color: #d6b86a;
           text-align: center;
-          padding: 9px;
-          font-size: 12px;
-          letter-spacing: 1px;
+          padding: 10px;
+          font-size: 11px;
+          letter-spacing: 2px;
         }
 
         .header {
@@ -137,12 +142,20 @@ function App() {
         }
 
         .logo {
-          border: none;
-          background: none;
+          border: 1px solid #80692e;
+          width: 43px;
+          height: 43px;
+          background: transparent;
           color: #d6b86a;
-          font-size: 20px;
+          font-family: Georgia, serif;
+          font-size: 22px;
           font-weight: bold;
-          letter-spacing: 5px;
+          letter-spacing: 0;
+        }
+
+        .logo:hover {
+          background: #d6b86a;
+          color: #111;
         }
 
         .navlinks {
@@ -164,11 +177,6 @@ function App() {
           color: #d6b86a;
         }
 
-        .cartbutton {
-          border: 1px solid #80692e;
-          padding: 10px 15px;
-        }
-
         .mobilebutton {
           display: none;
           margin-left: auto;
@@ -180,49 +188,85 @@ function App() {
 
         .hero {
           background:
-            radial-gradient(circle at center, #302a18, #080807 70%);
+            radial-gradient(
+              circle at 50% 40%,
+              rgba(91, 77, 39, 0.45),
+              transparent 35%
+            ),
+            radial-gradient(
+              circle at 20% 80%,
+              rgba(43, 74, 50, 0.35),
+              transparent 30%
+            ),
+            #080807;
           color: white;
-          min-height: 620px;
+          min-height: 650px;
           display: flex;
           align-items: center;
           justify-content: center;
           text-align: center;
-          padding: 80px 20px;
+          padding: 90px 20px;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .hero::before,
+        .hero::after {
+          content: "";
+          position: absolute;
+          width: 300px;
+          height: 300px;
+          border: 1px solid rgba(214, 184, 106, 0.12);
+          border-radius: 50%;
+        }
+
+        .hero::before {
+          left: -150px;
+          top: 80px;
+        }
+
+        .hero::after {
+          right: -150px;
+          bottom: 50px;
         }
 
         .hero-content {
           max-width: 850px;
+          position: relative;
+          z-index: 2;
         }
 
         .eyebrow {
           color: #d6b86a;
           text-transform: uppercase;
           letter-spacing: 4px;
-          font-size: 12px;
-          margin-bottom: 20px;
+          font-size: 11px;
+          margin-bottom: 22px;
         }
 
         .hero h1 {
           font-family: Georgia, serif;
           font-size: clamp(45px, 7vw, 82px);
-          line-height: 1;
-          margin-bottom: 25px;
+          line-height: 0.98;
+          margin-bottom: 28px;
+          font-weight: 500;
         }
 
         .hero h1 span {
           color: #d6b86a;
+          font-style: italic;
         }
 
         .hero p {
           color: #c9c6b9;
-          max-width: 650px;
+          max-width: 680px;
           margin: auto;
-          line-height: 1.8;
-          font-size: 17px;
+          line-height: 1.9;
+          font-size: 16px;
         }
 
         .buttons {
-          margin-top: 35px;
+          margin-top: 38px;
           display: flex;
           justify-content: center;
           gap: 15px;
@@ -233,95 +277,163 @@ function App() {
           background: #c6a15b;
           color: #111;
           border: none;
-          padding: 15px 28px;
+          padding: 15px 30px;
           font-weight: bold;
           letter-spacing: 1px;
+          transition: 0.25s;
+        }
+
+        .goldbutton:hover {
+          background: #e0c47e;
+          transform: translateY(-2px);
         }
 
         .outlinebutton {
           background: transparent;
           color: white;
-          border: 1px solid #aaa;
-          padding: 15px 28px;
+          border: 1px solid #777;
+          padding: 15px 30px;
+          transition: 0.25s;
+        }
+
+        .outlinebutton:hover {
+          border-color: #d6b86a;
+          color: #d6b86a;
         }
 
         .section {
           max-width: 1200px;
           margin: auto;
-          padding: 90px 25px;
+          padding: 95px 25px;
         }
 
         .sectiontitle {
           text-align: center;
-          margin-bottom: 50px;
+          margin-bottom: 52px;
         }
 
         .sectiontitle small {
           color: #96772f;
           text-transform: uppercase;
           letter-spacing: 3px;
+          font-size: 11px;
         }
 
         .sectiontitle h2 {
           font-family: Georgia, serif;
-          font-size: 42px;
+          font-size: 43px;
+          font-weight: 500;
           margin-top: 10px;
         }
 
         .products {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 25px;
+          gap: 28px;
         }
 
         .product {
-          background: white;
+          background: #fff;
           border: 1px solid #e2dccb;
+          transition: 0.3s ease;
+          overflow: hidden;
+        }
+
+        .product:hover {
+          transform: translateY(-7px);
+          box-shadow: 0 18px 45px rgba(25, 22, 12, 0.12);
         }
 
         .productimage {
-          height: 270px;
+          height: 285px;
           display: flex;
           align-items: center;
           justify-content: center;
           position: relative;
+          overflow: hidden;
         }
 
-        .seed {
-          width: 110px;
+        .productimage::before {
+          content: "";
+          position: absolute;
+          width: 230px;
+          height: 230px;
+          border: 1px solid rgba(255,255,255,0.12);
+          border-radius: 50%;
+        }
+
+        .productimage::after {
+          content: "";
+          position: absolute;
+          width: 180px;
+          height: 180px;
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 50%;
+        }
+
+        .botanical {
+          position: relative;
+          z-index: 2;
+          width: 135px;
+          height: 175px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: Georgia, serif;
+          font-size: 74px;
+          color: rgba(255,255,255,0.78);
+          text-shadow: 0 8px 25px rgba(0,0,0,0.35);
+          transform: rotate(-8deg);
+        }
+
+        .botanical::before {
+          content: "";
+          position: absolute;
+          width: 80px;
           height: 150px;
-          border-radius: 55% 45% 50% 50%;
-          transform: rotate(25deg);
-          background: rgba(255,255,255,.12);
-          border: 2px solid rgba(255,255,255,.4);
+          border-left: 1px solid rgba(255,255,255,0.25);
+          transform: rotate(22deg);
         }
 
         .badge {
           position: absolute;
-          top: 15px;
-          left: 15px;
+          top: 16px;
+          left: 16px;
           background: #111;
           color: #d6b86a;
-          padding: 7px 10px;
-          font-size: 10px;
+          padding: 7px 11px;
+          font-size: 9px;
+          letter-spacing: 1.5px;
           text-transform: uppercase;
+          z-index: 4;
+        }
+
+        .number {
+          position: absolute;
+          bottom: 14px;
+          right: 17px;
+          color: rgba(255,255,255,0.45);
+          font-family: Georgia, serif;
+          font-size: 13px;
+          z-index: 4;
         }
 
         .productinfo {
-          padding: 22px;
+          padding: 24px;
         }
 
         .origin {
           color: #9b7d37;
-          font-size: 11px;
+          font-size: 10px;
           text-transform: uppercase;
-          letter-spacing: 1px;
+          letter-spacing: 1.5px;
         }
 
         .productinfo h3 {
           font-family: Georgia, serif;
           font-size: 21px;
-          margin: 8px 0;
+          font-weight: 500;
+          margin: 9px 0;
         }
 
         .scientific {
@@ -333,7 +445,13 @@ function App() {
         .price {
           font-family: Georgia, serif;
           font-size: 23px;
-          margin: 18px 0;
+          margin: 19px 0;
+        }
+
+        .price small {
+          color: #888;
+          font-family: Arial, sans-serif;
+          font-size: 11px;
         }
 
         .addbutton {
@@ -341,8 +459,10 @@ function App() {
           background: #111;
           color: #d6b86a;
           border: 1px solid #111;
-          padding: 13px;
+          padding: 14px;
           font-weight: bold;
+          letter-spacing: 1px;
+          transition: 0.25s;
         }
 
         .addbutton:hover {
@@ -351,7 +471,13 @@ function App() {
         }
 
         .about {
-          background: #eee8d9;
+          background:
+            radial-gradient(
+              circle at 80% 20%,
+              rgba(198, 161, 91, 0.12),
+              transparent 30%
+            ),
+            #eee8d9;
         }
 
         .aboutgrid {
@@ -363,8 +489,10 @@ function App() {
 
         .about h2 {
           font-family: Georgia, serif;
-          font-size: 45px;
-          margin-bottom: 20px;
+          font-size: 48px;
+          font-weight: 500;
+          margin-bottom: 25px;
+          line-height: 1.05;
         }
 
         .about p {
@@ -380,12 +508,18 @@ function App() {
 
         .value {
           background: white;
-          padding: 25px;
+          padding: 26px;
           border-left: 3px solid #c6a15b;
+          transition: 0.25s;
+        }
+
+        .value:hover {
+          transform: translateX(5px);
         }
 
         .value h3 {
           font-family: Georgia, serif;
+          font-weight: 500;
           margin-bottom: 8px;
         }
 
@@ -410,8 +544,10 @@ function App() {
         .cartitem {
           display: flex;
           justify-content: space-between;
+          align-items: center;
           padding: 15px 0;
           border-bottom: 1px solid #39372d;
+          gap: 15px;
         }
 
         .remove {
@@ -419,6 +555,10 @@ function App() {
           border: none;
           color: #d46b6b;
           margin-left: 15px;
+        }
+
+        .remove:hover {
+          color: #ff9b9b;
         }
 
         .total {
@@ -433,12 +573,23 @@ function App() {
           background: #080807;
           color: #aaa;
           text-align: center;
-          padding: 45px 20px;
+          padding: 48px 20px;
         }
 
         .footer strong {
           color: #d6b86a;
-          letter-spacing: 4px;
+          letter-spacing: 5px;
+          font-family: Georgia, serif;
+        }
+
+        @media(max-width: 900px) {
+          .products {
+            grid-template-columns: repeat(2, 1fr);
+          }
+
+          .aboutgrid {
+            grid-template-columns: 1fr;
+          }
         }
 
         @media(max-width: 800px) {
@@ -460,18 +611,38 @@ function App() {
             flex-direction: column;
             padding: 20px 25px;
             gap: 20px;
+            border-bottom: 1px solid #514421;
           }
+        }
 
+        @media(max-width: 600px) {
           .products {
             grid-template-columns: 1fr;
           }
 
-          .aboutgrid {
-            grid-template-columns: 1fr;
+          .section {
+            padding: 70px 18px;
           }
 
           .sectiontitle h2 {
             font-size: 34px;
+          }
+
+          .about h2 {
+            font-size: 40px;
+          }
+
+          .hero {
+            min-height: 590px;
+          }
+
+          .hero h1 {
+            font-size: 48px;
+          }
+
+          .cartitem {
+            flex-direction: column;
+            align-items: flex-start;
           }
         }
       `}</style>
@@ -482,7 +653,6 @@ function App() {
 
       <header className="header">
         <nav className="nav">
-
           <button className="logo" onClick={() => scrollTo("home")}>
             K
           </button>
@@ -502,15 +672,12 @@ function App() {
           >
             ☰
           </button>
-
         </nav>
       </header>
 
       <main>
-
         <section className="hero" id="home">
           <div className="hero-content">
-
             <div className="eyebrow">
               Rare Seed House · Est. for Collectors & Growers
             </div>
@@ -542,38 +709,42 @@ function App() {
                 OUR STORY
               </button>
             </div>
-
           </div>
         </section>
 
         <section className="section" id="shop">
-
           <div className="sectiontitle">
             <small>Featured Rarities</small>
             <h2>This Season's Selection</h2>
           </div>
 
           <div className="products">
-
             {products.map((product) => (
-
               <article className="product" key={product.id}>
-
                 <div
                   className="productimage"
                   style={{
-                    background: `linear-gradient(145deg, ${product.color}, #172116)`,
+                    background: `
+                      radial-gradient(
+                        circle at 50% 50%,
+                        ${product.color},
+                        #172116 85%
+                      )
+                    `,
                   }}
                 >
-                  <div className="badge">
-                    {product.category}
+                  <div className="badge">{product.category}</div>
+
+                  <div className="botanical">
+                    {product.icon}
                   </div>
 
-                  <div className="seed"></div>
+                  <div className="number">
+                    0{product.id}
+                  </div>
                 </div>
 
                 <div className="productinfo">
-
                   <div className="origin">
                     {product.origin}
                   </div>
@@ -595,21 +766,14 @@ function App() {
                   >
                     ADD TO CART
                   </button>
-
                 </div>
-
               </article>
-
             ))}
-
           </div>
-
         </section>
 
         <section className="about" id="about">
-
           <div className="section aboutgrid">
-
             <div>
               <div className="eyebrow">The Khancraftz Story</div>
 
@@ -639,7 +803,6 @@ function App() {
             </div>
 
             <div className="values">
-
               <div className="value">
                 <h3>Hand Selected</h3>
                 <p>
@@ -662,17 +825,12 @@ function App() {
                   Practical growing information included with every variety.
                 </p>
               </div>
-
             </div>
-
           </div>
-
         </section>
 
         <section className="cartsection" id="cart">
-
           <div className="section">
-
             <div className="sectiontitle">
               <small>Your Selection</small>
               <h2 style={{ color: "white" }}>
@@ -681,20 +839,22 @@ function App() {
             </div>
 
             <div className="cartbox">
-
               {cart.length === 0 ? (
-
-                <p style={{ textAlign: "center", color: "#aaa" }}>
+                <p
+                  style={{
+                    textAlign: "center",
+                    color: "#aaa",
+                  }}
+                >
                   Your cart is empty.
                 </p>
-
               ) : (
-
                 <>
                   {cart.map((item, index) => (
-
-                    <div className="cartitem" key={`${item.id}-${index}`}>
-
+                    <div
+                      className="cartitem"
+                      key={`${item.id}-${index}`}
+                    >
                       <span>{item.name}</span>
 
                       <span>
@@ -707,9 +867,7 @@ function App() {
                           Remove
                         </button>
                       </span>
-
                     </div>
-
                   ))}
 
                   <div className="total">
@@ -717,19 +875,13 @@ function App() {
                     <strong>${total.toFixed(2)}</strong>
                   </div>
                 </>
-
               )}
-
             </div>
-
           </div>
-
         </section>
-
       </main>
 
       <footer className="footer">
-
         <strong>KHANCRAFTZ</strong>
 
         <p style={{ marginTop: "15px" }}>
@@ -739,10 +891,8 @@ function App() {
         <p style={{ marginTop: "20px", fontSize: "12px" }}>
           © {new Date().getFullYear()} Khancraftz. All rights reserved.
         </p>
-
       </footer>
-
-    </div>
+    </>
   );
 }
 
