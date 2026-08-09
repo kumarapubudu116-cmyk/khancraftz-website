@@ -615,7 +615,23 @@ function App() {
           }
         }
 
-        @media(max-width: 600px) {
+        @media(max-width: 600px) {.modalcontent {
+  grid-template-columns: 1fr;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modalvisual {
+  min-height: 230px;
+}
+
+.modalinfo {
+  padding: 30px 25px;
+}
+
+.modalinfo h2 {
+  font-size: 30px;
+}
           .products {
             grid-template-columns: 1fr;
           }
@@ -771,6 +787,119 @@ function App() {
   <button
     className="addbutton"
     .productbuttons {
+      .productmodal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.modalcontent {
+  width: min(900px, 100%);
+  background: #f8f5ed;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  position: relative;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+  animation: modalopen 0.25s ease;
+}
+
+@keyframes modalopen {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.closemodal {
+  position: absolute;
+  top: 15px;
+  right: 18px;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255,255,255,0.35);
+  background: rgba(0,0,0,0.35);
+  color: white;
+  font-size: 25px;
+  line-height: 1;
+  z-index: 5;
+}
+
+.closemodal:hover {
+  background: #c6a15b;
+  color: #111;
+}
+
+.modalvisual {
+  min-height: 430px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.modalvisual::before {
+  content: "";
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 50%;
+}
+
+.modalvisual span {
+  position: relative;
+  z-index: 2;
+  color: rgba(255,255,255,0.85);
+  font-family: Georgia, serif;
+  font-size: 110px;
+  text-shadow: 0 12px 35px rgba(0,0,0,0.4);
+}
+
+.modalinfo {
+  padding: 55px 45px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.modalinfo h2 {
+  font-family: Georgia, serif;
+  font-size: 38px;
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 10px 0;
+}
+
+.modaldescription {
+  color: #666;
+  line-height: 1.8;
+  margin: 25px 0;
+  font-size: 14px;
+}
+
+.modalprice {
+  font-family: Georgia, serif;
+  font-size: 30px;
+  margin-bottom: 25px;
+}
+
+.modalprice small {
+  color: #888;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
@@ -914,7 +1043,72 @@ function App() {
           </div>
         </section>
       </main>
+         {selectedProduct && (
+        <div
+          className="productmodal"
+          onClick={() => setSelectedProduct(null)}
+        >
+          <div
+            className="modalcontent"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="closemodal"
+              onClick={() => setSelectedProduct(null)}
+            >
+              ×
+            </button>
 
+            <div
+              className="modalvisual"
+              style={{
+                background: `
+                  radial-gradient(
+                    circle at 50% 50%,
+                    ${selectedProduct.color},
+                    #172116 85%
+                  )
+                `,
+              }}
+            >
+              <span>{selectedProduct.icon}</span>
+            </div>
+
+            <div className="modalinfo">
+              <div className="origin">
+                {selectedProduct.origin}
+              </div>
+
+              <h2>{selectedProduct.name}</h2>
+
+              <p className="scientific">
+                {selectedProduct.scientific}
+              </p>
+
+              <p className="modaldescription">
+                Carefully selected seeds for collectors and growers.
+                Each pack is prepared with care and ready for your
+                tropical garden journey.
+              </p>
+
+              <div className="modalprice">
+                ${selectedProduct.price.toFixed(2)}
+                <small> · {selectedProduct.pack}</small>
+              </div>
+
+              <button
+                className="addbutton"
+                onClick={() => {
+                  addToCart(selectedProduct);
+                  setSelectedProduct(null);
+                }}
+              >
+                ADD TO CART
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <footer className="footer">
         <strong>KHANCRAFTZ</strong>
 
