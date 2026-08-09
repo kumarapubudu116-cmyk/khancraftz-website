@@ -784,13 +784,12 @@ function App() {
   setSelectedProduct(product);
 }}
   >
-    VIEW DETAILS
-  </button>
-
-  <button className="addbutton">
-    ADD TO CART
-  </button>
-</div>
+    <button
+  className="detailsbutton"
+  onClick={() => alert("BUTTON WORKING")}
+>
+  VIEW DETAILS
+</button>
                 </div>
               </article>
             ))}
