@@ -779,7 +779,10 @@ function App() {
        <div className="productbuttons">
   <button
     className="detailsbutton"
-    onClick={() => setSelectedProduct(product)}
+   onClick={() => {
+  console.log("VIEW DETAILS CLICKED", product);
+  setSelectedProduct(product);
+}}
   >
     VIEW DETAILS
   </button>
