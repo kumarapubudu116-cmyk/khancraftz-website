@@ -72,7 +72,7 @@ const products = [
 function App() {
   const [cart, setCart] = useState([]);
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const addToCart = (product) => {
     setCart([...cart, product]);
   };
@@ -760,12 +760,46 @@ function App() {
                     <small> · {product.pack}</small>
                   </div>
 
-                  <button
-                    className="addbutton"
-                    onClick={() => addToCart(product)}
-                  >
-                    ADD TO CART
-                  </button>
+                  <div className="productbuttons">
+  <button
+    className="detailsbutton"
+    onClick={() => setSelectedProduct(product)}
+  >
+    VIEW DETAILS
+  </button>
+
+  <button
+    className="addbutton"
+    .productbuttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.detailsbutton {
+  width: 100%;
+  background: transparent;
+  color: #111;
+  border: 1px solid #b8aa83;
+  padding: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: 0.25s;
+}
+
+.detailsbutton:hover {
+  background: #eee8d9;
+  border-color: #96772f;
+}
+
+.productbuttons .addbutton {
+  width: 100%;
+}
+    onClick={() => addToCart(product)}
+  >
+    ADD TO CART
+  </button>
+</div>
                 </div>
               </article>
             ))}
