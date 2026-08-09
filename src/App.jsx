@@ -776,7 +776,7 @@ function App() {
                     <small> · {product.pack}</small>
                   </div>
 
-      <div className="productbuttons">
+   <div className="productbuttons">
   <button
     className="detailsbutton"
     onClick={() => {
@@ -785,6 +785,22 @@ function App() {
     }}
   >
     VIEW DETAILS
+  </button>
+
+  <button
+    className="addbutton"
+    onClick={() => addToCart(product)}
+  >
+    ADD TO CART
+    </button>
+</div>
+</div>
+</article>
+))}
+</div>
+</section>
+  </button>
+</div>
   </button>
 
   <button className="addbutton">
