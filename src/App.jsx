@@ -776,7 +776,7 @@ function App() {
                     <small> · {product.pack}</small>
                   </div>
 
-                 <div className="productbuttons">
+       <div className="productbuttons">
   <button
     className="detailsbutton"
     onClick={() => setSelectedProduct(product)}
