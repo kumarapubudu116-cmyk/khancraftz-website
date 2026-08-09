@@ -771,13 +771,26 @@ function App() {
                     {product.scientific}
                   </div>
 
-                  <div className="price">
-                    ${product.price.toFixed(2)}
-                    <small> · {product.pack}</small>
-                  </div>
+                 <div className="price">
+  ${product.price.toFixed(2)}
+  <small> · {product.pack}</small>
+</div>
 
-   <div className="productbuttons">
+<div className="productbuttons">
   <button
+    className="detailsbutton"
+    onClick={() => setSelectedProduct(product)}
+  >
+    VIEW DETAILS
+  </button>
+
+  <button
+    className="addbutton"
+    onClick={() => addToCart(product)}
+  >
+    ADD TO CART
+  </button>
+</div>
     className="detailsbutton"
     onClick={() => {
       console.log("VIEW DETAILS CLICKED", product);
